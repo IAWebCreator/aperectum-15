@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ApeRectum - The Ape of the Anal Cryptospace</title>
+    <meta name="description" content="ApeRectum ($AR) is a monument to absurdity in the crypto world. No promises, no utility, just the raw, unfiltered bottom of the barrel.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=VT323&display=swap" rel="stylesheet">
+
+    <style>
+        /*
+        ==============================================
+        === APE RECTUM - CSS STYLING ===
+        ==============================================
+        */
+
+        /* --- Root Variables & Base --- */
+        :root {
+            --primary-color: #00FF41; /* CRT Green */
+            --secondary-color: #FF0055; /* Glitch Pink */
+            --background-color: #121212;
+            --surface-color: #1E1E1E;
+            --text-color: #E0E0E0;
+            --text-dark-color: #121212;
+            --font-pixel: 'VT323', monospace;
+            --font-sans: 'Roboto', sans-serif;
+            --border-radius: 8px;
+            --shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- Scanline Overlay Effect --- */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.3),
+                rgba(0, 0, 0, 0.3) 1px,
+                transparent 1px,
+                transparent 3px
+            );
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.5;
+        }
+
+        /* --- Typography --- */
+        h1, h2, h3 {
+            font-family: var(--font-pixel);
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 5px var(--primary-color), 0 0 10px rgba(0, 255, 65, 0.5);
+        }
+
+        h1 { font-size: 3rem; }
+        h2 { font-size: 2.5rem; }
+        h3 { font-size: 1.8rem; }
+
+        p {
+            margin-bottom: 1rem;
+            max-width: 65ch;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--secondary-color);
+            text-shadow: 0 0 5px var(--secondary-color);
+        }
+
+        /* --- Layout & Containers --- */
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 4rem 0;
+        }
+
+        section {
+            border-bottom: 1px dashed rgba(0, 255, 65, 0.2);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        /* --- Header & Navigation --- */
+        .main-header {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+            padding: 1rem 5%;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-container img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo-container .logo-text {
+            font-family: var(--font-pixel);
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: none;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            font-family: var(--font-pixel);
+            font-size: 1.2rem;
+        }
+
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 2rem;
+            height: 2rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 10;
+        }
+
+        .hamburger .bar {
+            width: 2rem;
+            height: 0.25rem;
+            background: var(--primary-color);
+            border-radius: 10px;
+            transition: all 0.3s linear;
+            position: relative;
+            transform-origin: 1px;
+        }
+        
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 70%;
+            height: 100vh;
+            background-color: var(--surface-color);
+            z-index: 5;
+            transition: right 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-left: 2px solid var(--primary-color);
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+        
+        .mobile-nav .nav-links {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .mobile-nav .nav-links li {
+            margin-bottom: 2rem;
+        }
+
+        .hamburger.active .bar:nth-child(1) {
+            transform: rotate(45deg);
+        }
+        .hamburger.active .bar:nth-child(2) {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+        .hamburger.active .bar:nth-child(3) {
+            transform: rotate(-45deg);
+        }
+
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-content {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .hero-logo {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 1rem;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .hero h1 {
+            animation: textFlicker 3s linear infinite;
+        }
+
+        .hero .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            font-family: var(--font-pixel);
+            font-size: 1.2rem;
+            padding: 0.8rem 2rem;
+            border: 2px solid var(--primary-color);
+            background-color: transparent;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-color);
+            color: var(--text-dark-color);
+            box-shadow: 0 0 15px var(--primary-color);
+        }
+
+        .btn-secondary {
+            border-color: var(--text-color);
+            color: var(--text-color);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--text-color);
+            color: var(--text-dark-color);
+            box-shadow: 0 0 15px var(--text-color);
+        }
+
+        .contract-address {
+            background-color: var(--surface-color);
+            border: 1px dashed var(--primary-color);
+            padding: 1rem;
+            margin-top: 2.5rem;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contract-address .address {
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            word-break: break-all;
+            color: var(--text-color);
+        }
+
+        .copy-btn {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-family: var(--font-pixel);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .copy-btn:hover {
+            color: var(--secondary-color);
+        }
+
+        /* --- About Section --- */
+        .about-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* --- Tokenomics Section --- */
+        .tokenomics-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .token-card {
+            background-color: var(--surface-color);
+            padding: 2rem;
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            border-radius: var(--border-radius);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .token-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+        }
+
+        .token-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .token-card p {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin: 0;
+        }
+
+        /* --- How to Buy Section --- */
+        .how-to-buy-steps {
+            margin-top: 2rem;
+            counter-reset: step-counter;
+        }
+
+        .step {
+            background-color: var(--surface-color);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary-color);
+            position: relative;
+        }
+        
+        .step::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--primary-color);
+            color: var(--text-dark-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-pixel);
+            font-size: 1.5rem;
+        }
+
+        .step h3 {
+            color: var(--text-color);
+            text-shadow: none;
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- Roadmap Section --- */
+        .roadmap-timeline {
+            margin-top: 3rem;
+            position: relative;
+        }
+
+        .roadmap-timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: rgba(0, 255, 65, 0.3);
+        }
+
+        .roadmap-item {
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 3rem;
+        }
+
+        .roadmap-item::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 5px;
+            width: 24px;
+            height: 24px;
+            background-color: var(--background-color);
+            border: 4px solid var(--primary-color);
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .roadmap-item.complete::before {
+            background-color: var(--primary-color);
+        }
+
+        .roadmap-item h3 {
+            margin-bottom: 0.25rem;
+        }
+
+        /* --- Community Section --- */
+        .community-content {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .community-content .placeholder-text {
+            font-family: var(--font-pixel);
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-top: 2rem;
+            text-shadow: 0 0 8px var(--secondary-color);
+        }
+
+        /* --- Footer --- */
+        .main-footer {
+            background-color: var(--surface-color);
+            text-align: center;
+            padding: 2rem 5%;
+            border-top: 1px solid rgba(0, 255, 65, 0.2);
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-content p {
+            font-size: 0.8rem;
+            color: #aaa;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-content .ascii-art {
+            font-family: monospace;
+            white-space: pre;
+            color: var(--primary-color);
+            opacity: 0.5;
+            font-size: 0.7rem;
+            line-height: 1;
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes textFlicker {
+            0% { opacity: 0.8; text-shadow: 0 0 5px var(--primary-color); }
+            2% { opacity: 1; text-shadow: 0 0 10px var(--primary-color); }
+            4% { opacity: 0.5; }
+            6% { opacity: 1; }
+            20% { opacity: 1; }
+            22% { opacity: 0.7; }
+            24% { opacity: 1; }
+            50% { opacity: 1; }
+            55% { opacity: 0.3; text-shadow: 0 0 2px var(--primary-color); }
+            60% { opacity: 1; text-shadow: 0 0 5px var(--primary-color); }
+            100% { opacity: 1; }
+        }
+
+        /* --- Media Queries (Responsiveness) --- */
+        @media (min-width: 768px) {
+            h1 { font-size: 4.5rem; }
+            h2 { font-size: 3.5rem; }
+
+            .hamburger { display: none; }
+            .nav-links { display: flex; }
+            
+            .cta-buttons {
+                flex-direction: row;
+                justify-content: center;
+            }
+            
+            .contract-address .address {
+                font-size: 1rem;
+            }
+
+            .tokenomics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .tokenomics-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .roadmap-timeline::before {
+                left: 50%;
+                margin-left: -2px;
+            }
+            
+            .roadmap-item {
+                width: 50%;
+                padding-left: 0;
+                padding-right: 60px;
+                text-align: right;
+            }
+            
+            .roadmap-item:nth-child(odd) {
+                left: 0;
+            }
+            
+            .roadmap-item:nth-child(even) {
+                left: 50%;
+                text-align: left;
+                padding-left: 60px;
+                padding-right: 0;
+            }
+            
+            .roadmap-item::before {
+                left: -12px;
+                top: 5px;
+            }
+            
+            .roadmap-item:nth-child(odd)::before {
+                right: -12px;
+                left: auto;
+            }
+            
+            .roadmap-item:nth-child(even)::before {
+                left: -12px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="nav-container">
+            <a href="#" class="logo-container">
+                <img src="./logo.png" alt="ApeRectum Logo">
+                <span class="logo-text">$AR</span>
+            </a>
+            <nav class="mobile-nav" id="mobile-nav">
+                <ul class="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#tokenomics">Tokenomics</a></li>
+                    <li><a href="#how-to-buy">How to Buy</a></li>
+                    <li><a href="#roadmap">Roadmap</a></li>
+                </ul>
+            </nav>
+            <button class="hamburger" id="hamburger-menu" aria-label="menu">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </button>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- Hero Section -->
+        <section id="hero" class="hero visible">
+            <div class="container">
+                <div class="hero-content">
+                    <img src="./logo.png" alt="ApeRectum Pixelated Logo" class="hero-logo">
+                    <h1>ApeRectum</h1>
+                    <p class="subtitle">The Bottom of the Crypto Barrel.</p>
+
+                    <div class="cta-buttons">
+                        <a href="https://raydium.io/swap/?inputCurrency=sol&outputCurrency=CHiNsA2B6ZbmKnEmHPCbbX9aXJyoJzAtcLpHEDd6Qyq3" target="_blank" rel="noopener noreferrer" class="btn">Buy $AR on Raydium</a>
+                        <a href="https://dexscreener.com/solana/CHiNsA2B6ZbmKnEmHPCbbX9aXJyoJzAtcLpHEDd6Qyq3" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">View Chart</a>
+                    </div>
+
+                    <div class="contract-address">
+                        <p class="address" id="contract-address-text">CHiNsA2B6ZbmKnEmHPCbbX9aXJyoJzAtcLpHEDd6Qyq3</p>
+                        <button class="copy-btn" id="copy-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
+                            </svg>
+                            <span id="copy-btn-text">Copy Address</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <div class="container">
+                <div class="about-content">
+                    <h2>What the hell is $AR?</h2>
+                    <p>Crypto became a landscape of serious faces and complicated promises. We're the counter-movement. ApeRectum is a digital monument to pure, unadulterated absurdity. It's a social experiment to see what happens when you strip away all the hype.</p>
+                    <p>There is no utility. There is no grand vision for changing the world. There is only $AR, a token that exists for the sake of existing. It's the deepest, darkest, and most honest corner of the cryptospace.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tokenomics Section -->
+        <section id="tokenomics">
+            <div class="container">
+                <h2 style="text-align: center;">Tokenomics from the Abyss</h2>
+                <div class="tokenomics-grid">
+                    <div class="token-card">
+                        <h3>Total Supply</h3>
+                        <p>1B $AR</p>
+                    </div>
+                    <div class="token-card">
+                        <h3>Buy/Sell Tax</h3>
+                        <p>0%</p>
+                    </div>
+                    <div class="token-card">
+                        <h3>Liquidity</h3>
+                        <p>Burned</p>
+                    </div>
+                    <div class="token-card">
+                        <h3>Ownership</h3>
+                        <p>Renounced</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How to Buy Section -->
+        <section id="how-to-buy">
+            <div class="container">
+                <h2 style="text-align: center;">Get Your Hands Dirty</h2>
+                <div class="how-to-buy-steps">
+                    <div class="step">
+                        <h3>1. Get a Wallet</h3>
+                        <p>Download a Solana wallet like Phantom or Solflare from the app store or browser extension store.</p>
+                    </div>
+                    <div class="step">
+                        <h3>2. Fund Your Wallet</h3>
+                        <p>Buy some SOL on a major exchange (like Coinbase or Binance) and send it to your new wallet address.</p>
+                    </div>
+                    <div class="step">
+                        <h3>3. Go to a DEX</h3>
+                        <p>Navigate to a decentralized exchange like Raydium or Jupiter in your wallet's browser.</p>
+                    </div>
+                    <div class="step">
+                        <h3>4. Swap for $AR</h3>
+                        <p>Paste the $AR contract address, select how much SOL you want to swap, and confirm the transaction.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Roadmap Section -->
+        <section id="roadmap">
+            <div class="container">
+                <h2 style="text-align: center;">The Brownprint</h2>
+                <div class="roadmap-timeline">
+                    <div class="roadmap-item complete">
+                        <h3>Phase 1: Exist</h3>
+                        <p>The token is launched. The contract is deployed. We are officially at the bottom.</p>
+                    </div>
+                    <div class="roadmap-item">
+                        <h3>Phase 2: Vibe</h3>
+                        <p>The community of degenerates forms organically. We watch the chart. We laugh. We cry. We exist.</p>
+                    </div>
+                    <div class="roadmap-item">
+                        <h3>Phase 3: ???</h3>
+                        <p>Nobody knows. There is no plan. That's the point. Maybe we make more memes.</p>
+                    </div>
+                    <div class="roadmap-item">
+                        <h3>Phase 4: Rectum?</h3>
+                        <p>We achieve peak absurdity. The cycle completes. Or maybe it just keeps going deeper.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Community Section -->
+        <section id="community">
+            <div class="container">
+                <div class="community-content">
+                    <h2>Join the Bottom Feeders</h2>
+                    <p>We don't have a Discord server filled with hype or a Twitter account spamming hashtags. Our community is not a place you join, it's a state of mind.</p>
+                    <p>Find us in the transaction history, in the on-chain messages, in the shared understanding that this is all a magnificent joke. If you get it, you're already in.</p>
+                    <div class="placeholder-text">
+                        [ NO SOCIALS. ONLY VIBES. ]
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="ascii-art">
+             _
+            / \
+           / _ \
+          / | | \
+         /  |_|  \
+        /    _    \
+       /    (_)    \
+      /_____________\
+            </div>
+            <p>$AR is a memecoin with no intrinsic value or expectation of financial return. It is for entertainment purposes only. This is not financial advice. You will likely lose all your money. Have fun.</p>
+            <p>&copy; 2024 ApeRectum. All rights reserved. Or not. We don't care.</p>
+        </div>
+    </footer>
+
+    <script>
+        /*
+        ==============================================
+        === APE RECTUM - JAVASCRIPT LOGIC ===
+        ==============================================
+        */
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Mobile Navigation ---
+            const hamburgerMenu = document.getElementById('hamburger-menu');
+            const mobileNav = document.getElementById('mobile-nav');
+            const navLinks = mobileNav.querySelectorAll('a');
+
+            const toggleNav = () => {
+                hamburgerMenu.classList.toggle('active');
+                mobileNav.classList.toggle('active');
+            };
+
+            hamburgerMenu.addEventListener('click', toggleNav);
+            
+            // Close nav when a link is clicked
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mobileNav.classList.contains('active')) {
+                        toggleNav();
+                    }
+                });
+            });
+
+            // --- Contract Address Copy ---
+            const copyBtn = document.getElementById('copy-btn');
+            const copyBtnText = document.getElementById('copy-btn-text');
+            const contractAddress = document.getElementById('contract-address-text').innerText;
+
+            copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(contractAddress).then(() => {
+                    copyBtnText.innerText = 'Copied!';
+                    copyBtn.style.color = 'var(--secondary-color)';
+                    setTimeout(() => {
+                        copyBtnText.innerText = 'Copy Address';
+                        copyBtn.style.color = 'var(--primary-color)';
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                    copyBtnText.innerText = 'Error!';
+                });
+            });
+
+            // --- Scroll Animation ---
+            const sections = document.querySelectorAll('section');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                if(section.id !== 'hero') { // Don't animate the hero section
+                    observer.observe(section);
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
